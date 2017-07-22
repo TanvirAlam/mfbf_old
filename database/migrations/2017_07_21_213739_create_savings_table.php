@@ -16,7 +16,7 @@ class CreateSavingsTable extends Migration
         Schema::create('savings', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->references('id')->on('users');
-            $table->unsignedInteger('category_id')->references('id')->on('categories');
+            $table->unsignedInteger('category_id')->references('id')->on('saving_categories');
             $table->unsignedInteger('frequency_id')->references('id')->on('frequencies');
             $table->double('amount', 10, 5);
             $table->dateTime('received_at')->nullable();

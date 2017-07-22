@@ -16,6 +16,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->references('id')->on('users');
+            $table->unsignedInteger('category_id')->references('id')->on('transaction_categories');
             $table->unsignedInteger('bank_transaction_id')->references('id')->on('bank_transactions');
             $table->string('paid_to');
             $table->double('amount', 10, 5);
