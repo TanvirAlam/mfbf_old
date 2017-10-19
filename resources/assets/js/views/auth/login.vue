@@ -74,7 +74,7 @@
                                                 </router-link>
                                             </p>
                                             <p class="control">
-                                                <a class="button">
+                                                <a class="button" href="/api/redirect/facebook">
                                                     <span class="icon">
                                                       <i class="fa fa-facebook"></i>
                                                     </span>
