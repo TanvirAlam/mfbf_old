@@ -5,7 +5,7 @@
                 <figure class="image is-32x32">
                     <img src="img/avatar1.png" alt="User Image" class="img-circle">
                 </figure>
-                <a class="level-item">
+                <a class="level-item" @click="openModalCard()">
                     <span class="icon is-small"><i class="fa fa-cogs"></i></span>
                 </a>
                 <a class="level-item" @click="logout">
@@ -72,12 +72,31 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
+  import Vue from 'vue'
+  import CardModal from './modals/CardModal'
+
+  const CardModalComponent = Vue.extend(CardModal)
+
+  const openCardModal = (propsData = {
+    visible: true
+  }) => {
+    return new CardModalComponent({
+      el: document.createElement('div'),
+      propsData
+    })
+  }
+
   export default {
     name: 'sidebar',
     props: {
       show: Boolean
     },
+    data () {
+      return {
+        cardModal: null
+      }
+    },
+
     methods: {
       logout () {
         this.$store.dispatch('logout').then(() => {
@@ -86,6 +105,14 @@
           })
         })
       },
+
+      openModalCard () {
+        const cardModal = this.cardModal || (this.cardModal = openCardModal({
+          title: 'Settings',
+          url: ''
+        }))
+        cardModal.$children[0].active()
+      }
     },
   }
 
