@@ -26,11 +26,8 @@
                                   </span>
                                 </p>
                             </div>
-
                         </nav>
-
                     </div>
-
                     <small> @tanvir.alam.shawn</small>
                     <div class="level-left">
                         <a>
@@ -66,11 +63,11 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <h8 class="amount income income-color">
+                                    <div class="amount income income-color">
                                         <span class="icon is-medium">
                                             <i class="fa fa-plus-circle"></i>
                                         </span>
-                                        30,000 </h8>
+                                        30,000 </div>
                                 </td>
                             </tr>
                             </tbody>
@@ -299,6 +296,21 @@
                             </tr>
                             </tbody>
                         </table>
+                        <div class="pagination_mfbf">
+                            <nav class="pagination is-centered is-small" role="navigation" aria-label="pagination">
+                                <a class="pagination-previous">Previous</a>
+                                <a class="pagination-next">Next page</a>
+                                <ul class="pagination-list">
+                                    <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+                                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                                    <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+                                    <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
+                                    <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+                                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                                    <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+                                </ul>
+                            </nav>
+                        </div>
                         <div class="level-right savings-color">
                             <a @click="openModalCard()">
                                 <img src="img/csv.png" class="graph">
@@ -445,6 +457,10 @@
           url: ''
         }))
         cardModal.$children[0].active()
+      },
+
+      urlBuilder (page) {
+        return { query: { ...this.$route.query, page } } // Changing page in location query
       }
     },
   }
@@ -500,6 +516,12 @@
     .time{
         font-size: 14px;
         font-weight: bold;
+    }
+
+    .pagination_mfbf {
+        font-size: 10px;
+        margin-top: -37px;
+        margin-bottom: 20px;
     }
 
 </style>
