@@ -9,13 +9,9 @@
                                 <figure class="image is-32x32">
                                     <img src="img/avatar1.png" alt="User Image" class="img-circle">
                                 </figure>
-                                <a class="level-item" @click="openModalCard()">
-                                    <span class="icon is-small"><i class="fa fa-cogs"></i></span>
-                                </a>
                                 <a class="level-item" @click="logout">
-                                    <span class="icon is-small"><i class="fa fa-sign-out"></i></span>
+                                    <img src="img/logout.png" class="logout">
                                 </a>
-                                <label class="label">Showing:</label>
                                 <p class="control">
                                   <span class="select">
                                     <select>
@@ -36,6 +32,14 @@
                     </div>
 
                     <small> @tanvir.alam.shawn</small>
+                    <div class="level-left">
+                        <a>
+                            <span class="icon is-small">
+                                <i class="fa fa-step-backward"></i>
+                            </span>
+                        </a>
+                        FEB-2017
+                    </div>
                 </article>
             </div>
             <div class="tile is-horizontal">
@@ -71,21 +75,9 @@
                             </tr>
                             </tbody>
                         </table>
-                        <div class="level-right">
-                            <a class="button is-success" @click="openModalCard()">
-                                <span class="icon is-32x32">
-                                  <i class="fa fa-plus"></i>
-                                </span>
-                            </a>
-                            <a class="button is-success" @click="openModalCard()">
-                                <span class="icon is-32x32">
-                                  <i class="fa fa-plus"></i>
-                                </span>
-                            </a>
-                            <a class="button is-success" @click="openModalCard()">
-                                <span class="icon is-32x32">
-                                  <i class="fa fa-plus"></i>
-                                </span>
+                        <div class="level-right income-color">
+                            <a @click="openModalCard()">
+                                <img src="img/graph.png" class="graph">
                             </a>
                         </div>
                     </article>
@@ -120,21 +112,9 @@
                             </tr>
                             </tbody>
                         </table>
-                        <div class="level-right">
-                            <a class="button is-success" @click="openModalCard()">
-                                <span class="icon is-32x32">
-                                  <i class="fa fa-plus"></i>
-                                </span>
-                            </a>
-                            <a class="button is-success" @click="openModalCard()">
-                                <span class="icon is-32x32">
-                                  <i class="fa fa-plus"></i>
-                                </span>
-                            </a>
-                            <a class="button is-success" @click="openModalCard()">
-                                <span class="icon is-32x32">
-                                  <i class="fa fa-plus"></i>
-                                </span>
+                        <div class="level-right expense-color">
+                            <a @click="openModalCard()">
+                                <img src="img/graph.png" class="graph">
                             </a>
                         </div>
                     </article>
@@ -169,21 +149,12 @@
                             </tr>
                             </tbody>
                         </table>
-                        <div class="level-right">
-                            <a class="button is-success" @click="openModalCard()">
-                                <span class="icon is-32x32">
-                                  <i class="fa fa-plus"></i>
-                                </span>
+                        <div class="level-right savings-color">
+                            <a @click="openModalCard()">
+                                <img src="img/graph.png" class="graph">
                             </a>
-                            <a class="button is-success" @click="openModalCard()">
-                                <span class="icon is-32x32">
-                                  <i class="fa fa-plus"></i>
-                                </span>
-                            </a>
-                            <a class="button is-success" @click="openModalCard()">
-                                <span class="icon is-32x32">
-                                  <i class="fa fa-plus"></i>
-                                </span>
+                            <a @click="openModalCard()">
+                                <img src="img/add.png" class="graph">
                             </a>
                         </div>
                     </article>
@@ -194,16 +165,33 @@
                     <article class="tile is-child box">
                         <div class="level-left">
                             <figure class="image is-32x32">
-                                <img src="img/transaction.png" alt="User Image" class="img-savings">
+                                <img src="img/transactions.png" alt="User Image" class="img-savings">
                             </figure>
                             <h4 class="title">Transactions</h4>
                         </div>
+                        <div class="level-right">
+                            <a>
+                                <span class="icon is-small">
+                                    <i class="fa fa-step-backward"></i>
+                                </span>
+                            </a>
+                            FEB-2017
+                        </div>
+                        <p class="control">
+                          <span class="select">
+                            <select>
+                              <option>Account 1</option>
+                              <option>Account 2</option>
+                            </select>
+                          </span>
+                        </p>
                         <table class="table">
                             <thead>
                             <tr>
                                 <th>Description</th>
                                 <th>Category</th>
                                 <th>Amount</th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -237,6 +225,10 @@
                                 <td>
                                     <a><img src="img/move_expense.png" alt="User Image"></a>
                                 </td>
+                                <td>
+                                    <a><img src="img/edit.png" alt="User Image"></a>
+                                    <a><img src="img/delete.png" alt="User Image"></a>
+                                </td>
                             </tr>
                             <tr class="income-color">
                                 <td>Company X salary</td>
@@ -254,6 +246,10 @@
                                     <a><img src="img/income.png" alt="User Image"></a>
                                 </td>
                                 <td></td>
+                                <td>
+                                    <a><img src="img/edit.png" alt="User Image"></a>
+                                    <a><img src="img/delete.png" alt="User Image"></a>
+                                </td>
                             </tr>
                             <tr class="expense-color">
                                 <td>Kwickly payment</td>
@@ -273,27 +269,47 @@
                                 <td>
                                     <a><img src="img/move_expense.png" alt="User Image"></a>
                                 </td>
+                                <td>
+                                    <a><img src="img/edit.png" alt="User Image"></a>
+                                    <a><img src="img/delete.png" alt="User Image"></a>
+                                </td>
+                            </tr>
+                            <tr class="expense-color">
+                                <td>H&M shopping</td>
+                                <td>
+                                    <img src="img/cloths.png" alt="User Image">
+                                    Shopping (Clothes & shoes)
+                                </td>
+                                <td>
+                                    <span class="icon is-small">
+                                            <i class="fa fa-minus-circle"></i>
+                                    </span>
+                                    6,500 DKK
+                                </td>
+                                <td>
+                                    <a><img src="img/expense.png" alt="User Image"></a>
+                                </td>
+                                <td>
+                                    <a><img src="img/move_expense.png" alt="User Image"></a>
+                                </td>
+                                <td>
+                                    <a><img src="img/edit.png" alt="User Image"></a>
+                                    <a><img src="img/delete.png" alt="User Image"></a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
-                        <div class="level-right">
-                            <a class="button is-success" @click="openModalCard()">
-                                <span class="icon is-32x32">
-                                  <i class="fa fa-plus"></i>
-                                </span>
+                        <div class="level-right savings-color">
+                            <a @click="openModalCard()">
+                                <img src="img/csv.png" class="graph">
                             </a>
-                            <a class="button is-success" @click="openModalCard()">
-                                <span class="icon is-32x32">
-                                  <i class="fa fa-plus"></i>
-                                </span>
+                            <a @click="openModalCard()">
+                                <img src="img/bank.png" class="graph">
                             </a>
-                            <a class="button is-success" @click="openModalCard()">
-                                <span class="icon is-32x32">
-                                  <i class="fa fa-plus"></i>
-                                </span>
+                            <a @click="openModalCard()">
+                                <img src="img/add.png" class="graph">
                             </a>
                         </div>
-
                     </article>
                 </div>
             </div>
@@ -303,25 +319,31 @@
                         <ul>
                             <li class="is-active">
                                 <a>
-                                    <span class="icon is-small"><i class="fa fa-th-list"></i></span>
+                                    <img src="img/settings.png" class="settings">
+                                    <span>Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <img src="img/categories.png" class="graph">
                                     <span>Catagories</span>
                                 </a>
                             </li>
                             <li>
                                 <a>
-                                    <span class="icon is-small"><i class="fa fa-line-chart"></i></span>
+                                    <img src="img/forecast.png" class="graph">
                                     <span>Forecast</span>
                                 </a>
                             </li>
                             <li>
                                 <a>
-                                    <span class="icon is-small"><i class="fa fa-film"></i></span>
+                                    <img src="img/reports.png" class="graph">
                                     <span>Reports</span>
                                 </a>
                             </li>
                             <li>
                                 <a>
-                                    <span class="icon is-small"><i class="fa fa-calendar-o"></i></span>
+                                    <img src="img/calender.png" class="graph">
                                     <span>Calender</span>
                                 </a>
                             </li>
@@ -333,7 +355,42 @@
         </div>
         <div class="tile is-parent">
             <article class="tile is-child box">
-                <p>Timeline with information on my spending, need a cool design for this</p>
+                <ul class="timeline">
+                    <li class="timeline-header">
+                        <span class="tag is-medium is-primary">Start</span>
+                    </li>
+                    <li class="timeline-item is-primary">
+                        <div class="timeline-marker is-primary"></div>
+                        <div class="timeline-content">
+                            <p class="heading">January 2016</p>
+                            <p>Timeline content - Can include any HTML element</p>
+                        </div>
+                    </li>
+                    <li class="timeline-item is-warning">
+                        <div class="timeline-marker is-warning is-image is-32x32">
+                            <img src="http://bulma.io/images/placeholders/32x32.png">
+                        </div>
+                        <div class="timeline-content">
+                            <p class="heading">February 2016</p>
+                            <p>Timeline content - Can include any HTML element</p>
+                        </div>
+                    </li>
+                    <li class="timeline-header">
+                        <span class="tag is-primary">2017</span>
+                    </li>
+                    <li class="timeline-item is-danger">
+                        <div class="timeline-marker is-danger is-icon">
+                            <i class="fa fa-flag"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <p class="heading">March 2017</p>
+                            <p>Timeline content - Can include any HTML element</p>
+                        </div>
+                    </li>
+                    <li class="timeline-header">
+                        <span class="tag is-medium is-primary">End</span>
+                    </li>
+                </ul>
             </article>
         </div>
     </div>
@@ -343,6 +400,7 @@
   import Vue from 'vue'
   import CardModal from './modals/CardModal'
   import Datepicker from 'vue-bulma-datepicker'
+  import { Tabs, TabPane } from 'vue-bulma-tabs'
 
   const CardModalComponent = Vue.extend(CardModal)
 
@@ -361,7 +419,9 @@
       show: Boolean
     },
     components: {
-      Datepicker
+      Datepicker,
+      Tabs,
+      TabPane
     },
 
     data () {
@@ -435,6 +495,11 @@
 
     .amount::after {
         content:"DKK";
+    }
+
+    .time{
+        font-size: 14px;
+        font-weight: bold;
     }
 
 </style>
