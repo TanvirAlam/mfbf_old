@@ -15,6 +15,7 @@
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "bulma": "^0.4.4",
+    "bulma-timeline": "0.0.4",
     "cross-env": "^5.0.1",
     "laravel-mix": "^1.0",
     "sass-loader": "^6.0.6",
