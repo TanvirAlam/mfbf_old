@@ -8,6 +8,24 @@ use Tests\TestCase;
 class RegisterTest extends TestCase
 {
     /** @test */
+    public function check_email()
+    {
+        $this->post('/api/checkEmail', [
+            'email' => 'john.doe@example.org',
+        ])->assertSuccessful()->assertJson(['exist' => false]);
+    }
+
+    /** @test */
+    public function check_existing_email()
+    {
+        $user = factory(User::class)->create();
+
+        $this->post('/api/checkEmail', [
+            'email' => $user->email,
+        ])->assertSuccessful()->assertJson(['exist' => true]);
+    }
+
+    /** @test */
     public function can_register()
     {
         $this->postJson('/api/register', [
