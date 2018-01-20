@@ -1,10 +1,8 @@
 <template>
     <article class="tile is-child box">
         <div class="level-left">
-            <figure class="image is-32x32">
-                <img src="img/income_new.png" alt="User Image">
-            </figure>
-
+            <img src="img/income_new.png" alt="User Image">
+            <label class="label">Income</label>
         </div>
         <div class="amount income income-color">
             <span class="icon is-medium">
@@ -26,8 +24,8 @@
                 <span>Add</span>
             </a>
         </div>
-        <b-modal :active.sync="isModalActive" has-modal-card>
-            <IncomeAddFormModal v-bind="formProps"></IncomeAddFormModal>
+        <b-modal :active.sync="isModalActive" :width="640" scroll="keep">
+            <IncomeAddFormModal></IncomeAddFormModal>
         </b-modal>
     </article>
 </template>
@@ -40,16 +38,16 @@
       },
       data() {
         return {
-          isModalActive: false,
-          formProps: {
-            email: 'evan@you.com',
-            password: 'testing'
-          }
+          isModalActive: false
         }
       }
     }
 </script>
 <style>
+    .label {
+        padding: 5px 0px 0px 5px;
+        -webkit-filter: opacity(.5) drop-shadow(0 0 0 green);
+    }
     .income {
         font-size: xx-large;
     }
