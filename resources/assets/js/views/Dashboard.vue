@@ -92,6 +92,7 @@
 <style lang="scss">
     @import '~bulma/sass/utilities/variables';
     @import '~bulma/sass/utilities/mixins';
+    @import '~vue-multiselect/dist/vue-multiselect.min';
 
     .topbox {
         padding: 0px 10px;
