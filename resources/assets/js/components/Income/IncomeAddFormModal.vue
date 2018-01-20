@@ -9,12 +9,7 @@
                     <div class="column">
                         <b-field label="Type">
                             <div class="control">
-                                <div class="select">
-                                    <select>
-                                        <option>Select dropdown</option>
-                                        <option>With options</option>
-                                    </select>
-                                </div>
+                                <autocomplete></autocomplete>
                             </div>
                         </b-field>
                     </div>
@@ -51,28 +46,70 @@
                                 </div>
                             </div>
                         </b-field>
-                        <b-field label="Status">
-                            <div>
-                                <p>
-                                    <vb-switch type="success" size="large" v-model="value" @change="change"/>
-                                </p>
-                                <p>
-                                    {{ text }}
-                                </p>
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Status">
+                                    <div>
+                                        <vb-switch type="success" size="large" v-model="value" @change="change"/>
+                                        {{ text }}
+                                    </div>
+                                </b-field>
                             </div>
-                        </b-field>
+                            <div class="column">
+                                <b-field label="Intervels">
+                                    <div class="field">
+                                        <div class="control">
+                                            <div class="select is-primary">
+                                                <select>
+                                                    <option>Monthly</option>
+                                                    <option>Daily</option>
+                                                    <option>Weekly</option>
+                                                    <option>Hourly</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </b-field>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="columns">
                     <div class="column">
-                        <b-field label="Amount">
-                            <div class="control">
-
+                        <b-field label="Amount before SKAT">
+                            <div class="control has-icons-left">
+                                <vue-autonumeric
+                                        v-model="defaultValue"
+                                        :options="{
+                                                 digitGroupSeparator: '.',
+                                                 decimalCharacter: ',',
+                                                 decimalCharacterAlternative: '.',
+                                                 currencySymbol: '\u00a0DKK',
+                                                 currencySymbolPlacement: 's',
+                                                 roundingMethod: 'U',
+                                                 minimumValue: '0'
+                                             }"
+                                ></vue-autonumeric>
                             </div>
                         </b-field>
                     </div>
                     <div class="column">
-
+                        <b-field label="Amount after SKAT">
+                            <div class="control has-icons-left">
+                                <vue-autonumeric
+                                        v-model="defaultValue"
+                                        :options="{
+                                                 digitGroupSeparator: '.',
+                                                 decimalCharacter: ',',
+                                                 decimalCharacterAlternative: '.',
+                                                 currencySymbol: '\u00a0DKK',
+                                                 currencySymbolPlacement: 's',
+                                                 roundingMethod: 'U',
+                                                 minimumValue: '0'
+                                             }"
+                                ></vue-autonumeric>
+                            </div>
+                        </b-field>
                     </div>
                 </div>
             </section>
@@ -92,6 +129,7 @@
 
 <script>
   import BField from '../../../../../node_modules/buefy/src/components/field/Field.vue'
+  import VueAutonumeric from '../../../../../node_modules/vue-autonumeric/src/components/VueAutonumeric.vue'
   import Datepicker from 'vuejs-datepicker'
   import VbSwitch from 'vue-bulma-switch'
   import Multiselect from 'vue-multiselect'
@@ -101,37 +139,45 @@
       BField,
       Datepicker,
       VbSwitch,
-      Multiselect
+      Multiselect,
+      VueAutonumeric
     },
-    props: ['email', 'password'],
+    props: ['url'],
     data() {
       return {
         isPublic: true,
         format: 'd MMMM yyyy',
-        value: false,
+        defaultValue: 0.00,
+        value: true,
         text: '',
         selected: null,
         options: ['list', 'of', 'options'],
         value: { language: 'JavaScript', library: 'Vue-Multiselect' },
         options: [
-          {	language: 'JavaScript', library: 'Vue.js' },
-          { language: 'JavaScript', library: 'Vue-Multiselect' },
-          { language: 'JavaScript', library: 'Vuelidate' }
+          {	language: 'JavaScript', library: 'Main salary' },
+          { language: 'JavaScript', library: 'Temp loan' },
+          { language: 'JavaScript', library: 'Random' }
         ]
       }
     },
     methods: {
       change (val) {
-        this.text = val ? 'PAID' : 'NOT PAID'
+        this.text = val ? 'Repeat' : 'Random'
       },
       customLabel (option) {
         return `${option.library} - ${option.language}`
+      },
+      getData(obj){
+        console.log(obj);
       }
     }
   }
 </script>
 
 <style>
+    /*
+    TODO import css vue2-autocomplete.css
+     */
     .modal-card {
         width: auto;
     }

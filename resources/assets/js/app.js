@@ -17,6 +17,7 @@ Vue.component('icon', require('./components/Icon'))
 Vue.component('alert', require('./components/Alert'))
 Vue.component('loader', require('./components/Loader'))
 Vue.component('income-dashboard', require('./components/Income/IncomeDashboard'))
+Vue.component('autocomplete',require('./components/Autocomplete.vue'))
 
 const app = new Vue({
     el: '#app',
