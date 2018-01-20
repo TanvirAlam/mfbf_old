@@ -31,6 +31,6 @@ class Transaction extends Model
      */
     public function transactionCategory()
     {
-        $this->hasMany(TransactionCategory::class, 'category_id', 'id');
+        $this->hasMany(Category::class, 'category_id', 'id');
     }
 }
