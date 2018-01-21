@@ -25,6 +25,7 @@ class CreateIncomeTable extends Migration
             $table->string('interval');
             $table->timestamps();
             $table->dateTime('cancelled_at')->nullable();
+            $table->string('docs')->nullable();
 
             $table->index(['category_id']);
 

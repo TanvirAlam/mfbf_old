@@ -2,22 +2,23 @@
     <form action="">
         <div class="modal-card">
             <header class="modal-card-head is-small">
-                <p class="modal-card-title">Insert income</p>
+                <img src="img/income_new.png" alt="User Image">
+                <label class="label">Insert income</label>
             </header>
             <section class="modal-card-body">
                 <div class="columns">
                     <div class="column">
-                        <b-field label="Type">
+                        <b-field label="Category">
                             <div class="control">
-                                <autocomplete></autocomplete>
+                                <autocomplete v-validate="'required'" placeholder="Search for income type"></autocomplete>
                             </div>
                         </b-field>
                     </div>
                     <div class="column">
-                        <b-field label="Issue date">
+                        <b-field label="Collected at">
                             <div class="control">
                                 <div class="select">
-                                    <datepicker :format="format"></datepicker>
+                                    <datepicker v-validate="'required'" :format="format" :value="customFormatter"></datepicker>
                                 </div>
                             </div>
                         </b-field>
@@ -32,25 +33,30 @@
                         </b-field>
                     </div>
                     <div class="column">
-                        <b-field label="Tags">
-                            <div class="control has-icons-left has-icons-right">
-                                <div>
-                                    <multiselect
-                                            v-model="value"
-                                            :options="options"
-                                            :multiple="true"
-                                            track-by="library"
-                                            :custom-label="customLabel"
-                                    >
-                                    </multiselect>
-                                </div>
-                            </div>
+                        <b-field label="Upload">
+                        <div class="file has-name is-small">
+                            <label class="file-label">
+                                <input class="file-input" type="file" name="resume">
+                                <span class="file-cta">
+                                  <span class="file-icon">
+                                    <i class="fa fa-upload"></i>
+                                  </span>
+                                  <span class="file-label">
+                                    Choose a file…
+                                  </span>
+                                </span>
+                                <span class="file-name">
+                                  Salary sheet
+                                </span>
+                            </label>
+                        </div>
                         </b-field>
                         <div class="columns">
                             <div class="column">
-                                <b-field label="Status">
-                                    <div>
-                                        <vb-switch type="success" size="large" v-model="value" @change="change"/>
+                                <b-field label="Occurrence">
+                                    <div class="is-small">
+                                        <vb-switch v-validate="'required'" type="success" size="large" v-model="value" @change="change"/>
+                                        <i v-if="text = 'Repeat'" class="fa fa-random"></i>
                                         {{ text }}
                                     </div>
                                 </b-field>
@@ -97,6 +103,7 @@
                         <b-field label="Amount after SKAT">
                             <div class="control has-icons-left">
                                 <vue-autonumeric
+                                        v-validate="'required'"
                                         v-model="defaultValue"
                                         :options="{
                                                  digitGroupSeparator: '.',
@@ -113,13 +120,20 @@
                     </div>
                 </div>
             </section>
-            <footer class="modal-card-foot is-pulled-left">
-                <div class="field is-grouped">
+            <footer class="modal-card-foot is-pulled-right">
+                <div class="field is-grouped is-pulled-right">
                     <div class="control">
-                        <button class="button" type="button" @click="$parent.close()">Close</button>
+                        <a class="button is-light is-small" @click="$parent.close()">
+                            <span class="icon is-small">
+                                <icon class="fa fa-times"></icon>
+                            </span>
+                            <span>Close</span>
+                        </a>
                     </div>
                     <div class="control">
-                        <button class="button is-text">Save</button>
+                        <button :disabled="errors.any()" type="submit" class="button is-success is-small">
+                            Submit
+                        </button>
                     </div>
                 </div>
             </footer>
@@ -133,6 +147,7 @@
   import Datepicker from 'vuejs-datepicker'
   import VbSwitch from 'vue-bulma-switch'
   import Multiselect from 'vue-multiselect'
+  import { Validator } from 'vee-validate';
 
   export default {
     components: {
@@ -149,26 +164,39 @@
         format: 'd MMMM yyyy',
         defaultValue: 0.00,
         value: true,
-        text: '',
+        text: 'Repeat',
         selected: null,
-        options: ['list', 'of', 'options'],
-        value: { language: 'JavaScript', library: 'Vue-Multiselect' },
-        options: [
-          {	language: 'JavaScript', library: 'Main salary' },
-          { language: 'JavaScript', library: 'Temp loan' },
-          { language: 'JavaScript', library: 'Random' }
-        ]
       }
     },
     methods: {
       change (val) {
         this.text = val ? 'Repeat' : 'Random'
       },
-      customLabel (option) {
-        return `${option.library} - ${option.language}`
-      },
       getData(obj){
         console.log(obj);
+      },
+      customFormatter(date) {
+        date: new Date(2016, 9,  16)
+      },
+      validateBeforeSubmit() {
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            this.register()
+          }
+        })
+      },
+    },
+
+    computed: {
+      occurrence: function() {
+        if (this.text == 'Repeat') {
+          return 'fa-repeat'
+        } else if (this.text == 'Random') {
+          return 'fa-random'
+        }
+      },
+      currentFirstOfTheMonth: function () {
+        date: new Date(2016, 9,  16)
       }
     }
   }
@@ -186,5 +214,15 @@
         font-size: 100%;
         border: 1px solid #ccc;
         width: 100%
+    }
+    .label {
+        padding: 5px 0px 0px 5px;
+        -webkit-filter: opacity(.5) drop-shadow(0 0 0 green);
+    }
+    .income {
+        font-size: xx-large;
+    }
+    .income-color {
+        -webkit-filter: opacity(.5) drop-shadow(0 0 0 green);
     }
 </style>

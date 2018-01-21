@@ -1,6 +1,12 @@
 <template>
     <div>
-        <input type="text" placeholder="Serarch for income type" v-model="query" v-on:keyup="autoComplete()" class="form-control">
+        <input
+                type="text"
+                v-bind:placeholder="placeholder"
+                v-model="query"
+                v-on:keyup="autoComplete()"
+                class="form-control"
+        >
         <div class="panel-footer" v-if="results.length">
             <ul class="list-group">
                 <li class="list-group-item" v-for="result in results">
@@ -20,6 +26,12 @@
         results: []
       }
     },
+
+    props: [
+      'placeholder',
+      'name'
+    ],
+
     methods: {
       autoComplete(){
         this.results = [];
