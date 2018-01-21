@@ -9,4 +9,5 @@
     Route::group(['before' => 'jwt.refresh', 'middleware' => 'jwt.auth'], function () {
         Route::get('user', 'Auth\LoginController@getUser');
         Route::get('income/search', 'Income\IncomeController@getIncomeCategories');
+        Route::get('income/category/save', 'Income\IncomeController@saveIncomeCategory');
     });

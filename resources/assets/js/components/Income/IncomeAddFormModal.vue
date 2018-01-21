@@ -18,7 +18,7 @@
                         <b-field label="Collected at">
                             <div class="control">
                                 <div class="select">
-                                    <datepicker v-validate="'required'" :format="format" :value="customFormatter"></datepicker>
+                                    <datepicker :format="format"></datepicker>
                                 </div>
                             </div>
                         </b-field>
