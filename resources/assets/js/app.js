@@ -9,6 +9,7 @@ import './utils/interceptors'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
 
+
 Vue.use(VeeValidate)
 Vue.use(VueSweetAlert)
 Vue.use(Buefy)

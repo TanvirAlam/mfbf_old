@@ -13,11 +13,6 @@ class Groups extends Model
      */
     protected $fillable = ['name'];
 
-    protected $dates = [
-        'created_at',
-        'deleted_at',
-    ];
-
     public function getNameAttributes()
     {
         return $this->name;
@@ -30,6 +25,6 @@ class Groups extends Model
      */
     public function categories()
     {
-        $this->hasMany(Category::class, 'group_id', 'id');
+        return $this->hasMany(Category::class, 'group_id', 'id');
     }
 }

@@ -148,6 +148,7 @@
   import VbSwitch from 'vue-bulma-switch'
   import Multiselect from 'vue-multiselect'
   import { Validator } from 'vee-validate';
+  import 'vue2-autocomplete-js/dist/style/vue2-autocomplete.css'
 
   export default {
     components: {

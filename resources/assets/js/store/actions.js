@@ -17,6 +17,20 @@ export default {
       )
   },
 
+  saveCategory: ({ commit }, {query}) => {
+    console.log(query)
+    axios.post(`/api/income/category/save`, {
+      query
+    })
+  },
+
+  deleteCategory: ({ commit }, {query}) => {
+    console.log(query)
+    axios.post(`/api/income/category/delete`, {
+      query
+    })
+  },
+
   fetchUser: ({ commit }) => {
     const user = axios.get('/api/user')
 

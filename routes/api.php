@@ -8,6 +8,7 @@
     // TODO: Actually check the token. The jwt.auth middleware is broken as hell and doesn't even let the request reach the controller.
     Route::group(['before' => 'jwt.refresh', 'middleware' => 'jwt.auth'], function () {
         Route::get('user', 'Auth\LoginController@getUser');
-        Route::get('income/search', 'Income\IncomeController@getIncomeCategories');
-        Route::get('income/category/save', 'Income\IncomeController@saveIncomeCategory');
+        Route::get('income/search', 'CategoryController@getCategories');
+        Route::post('income/category/save', 'CategoryController@saveCategory');
+        Route::post('income/category/delete', 'CategoryController@deleteCategory');
     });
