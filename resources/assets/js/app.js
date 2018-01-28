@@ -14,6 +14,7 @@ Vue.use(Buefy)
 Vue.component('icon', require('./components/Icon'))
 Vue.component('alert', require('./components/Alert'))
 Vue.component('loader', require('./components/Loader'))
+Vue.component('autocomplete',require('./components/Autocomplete.vue'))
 Vue.component('b-field')
 
 const app = new Vue({

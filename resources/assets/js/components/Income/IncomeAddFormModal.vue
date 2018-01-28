@@ -10,7 +10,7 @@
                     <div class="column">
                         <b-field label="Category">
                             <div class="control">
-                                Autocomplete
+                                <autocomplete></autocomplete>
                             </div>
                         </b-field>
                     </div>
@@ -91,7 +91,7 @@
     </form>
 </template>
 
-<style scoped>
+<style>
     /*
     TODO import css vue2-autocomplete.css
      */
