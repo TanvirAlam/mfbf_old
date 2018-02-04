@@ -3,20 +3,21 @@
         <div class="field">
             <input type="text"
                    v-bind:placeholder="placeholder"
-                   v-model="query"
+                   v-bind:groupName="groupName"
+                   v-model="searchQuery"
                    v-on:keyup="autoComplete()"
                    class="form-control">
-                <span class="is-pulled-right newCategorySave" v-if="results.length == 0 && this.query">
-                    <a class="button is-success is-small" @click="saveCategory(this.query)">
+                <span class="is-pulled-right newCategorySave" v-if="results.length == 0 && this.searchQuery">
+                    <a class="button is-success is-small" @click="saveCategory(this.searchQuery)">
                         <span class="icon is-small">
                             <icon class="fa fa-floppy-o"></icon>
                         </span>
                     </a>
                 </span>
-                <div v-if="results.length == 0 && this.query" class="block">
+                <div v-if="results.length == 0 && this.searchQuery" class="block">
                   <span class="tag">
                       <i class="fa fa-exclamation-triangle"></i>
-                      <p class="help is-danger">Please enter only income categories</p>
+                      <p class="help is-danger">Please enter only {{ groupName }} categories</p>
                   </span>
                 </div>
         </div>
@@ -24,7 +25,7 @@
             <ul class="list-group">
                 <li class="list-group-item" v-for="result in results" @click="select(result)">
                     {{ result.name }}
-                    <a class="button is-success is-small is-pulled-right" @click="deleteCategory(this.query)">
+                    <a class="button is-success is-small is-pulled-right" @click="deleteCategory(this.searchQuery)">
                         <span class="icon is-small">
                             <icon class="fa fa-trash"></icon>
                         </span>
@@ -40,58 +41,73 @@
   export default{
     data(){
       return {
-        query: '',
+        searchQuery: '',
         results: []
       }
     },
-
     props: [
       'placeholder',
-      'name'
+      'name',
+      'groupName'
     ],
-
     methods: {
       autoComplete(){
         this.results = [];
-        if(this.query.length > 1){
-          this.$store.dispatch('searchCategory', {
-            query: this.query
+        if(this.searchQuery.length > 1){
+          axios.get('/api/category/search', {
+            params: {
+              query: this.searchQuery,
+              group_name: this.groupName
+            }
           }).then(response => {
-            console.log(response.data)
             this.results = response.data;
           })
         }
       },
-      input: function(){
-        this.selected = null
-      },
       select: function(result){
-        this.query = result.name
+        this.searchQuery = result.name
+        this.autoComplete()
       },
       saveCategory(){
         this.$store.dispatch('saveCategory', {
-          query: this.query
+          query: this.searchQuery,
+          groupName: this.groupName
         })
         this.autoComplete()
       },
       deleteCategory(){
         this.$store.dispatch('deleteCategory', {
-          query: this.query
+          query: this.searchQuery,
+          groupName: this.groupName
         })
         this.autoComplete()
       }
     }
   }
 </script>
-<style>
+<style scoped>
+
     .newCategorySave {
         margin-top: -32px;
         padding: 0px 5px;
     }
 
     .list-group {
-        width: 100%;
+        list-style: none;
+        padding: 5px 0px 0px 0px;
+        margin-left: 0px;
     }
+
+    .list-group li:hover {
+        color: #ffffff;
+        background-color: #00A5E3;
+    }
+
+    .list-group-item {
+        left: 100px;
+        padding: 0px 0px 3px 5px;
+    }
+/*
     .list-group li {
         position: relative;
         left: 0;
@@ -100,13 +116,8 @@
         list-style: none;
         transition: all 0.3s ease-out;
         padding: 20px 0px 0px 0px;
-        font-size: 12px;
         font-weight: bold;
     }
-
-    .list-group li:hover {
-        color: #761c19;
-        background-color: #00A5E3;
-    }
+*/
 
 </style>

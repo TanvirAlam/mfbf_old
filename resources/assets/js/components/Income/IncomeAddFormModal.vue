@@ -10,7 +10,10 @@
                     <div class="column">
                         <b-field label="Category">
                             <div class="control">
-                                <autocomplete></autocomplete>
+                                <autocomplete
+                                placeholder = "Search"
+                                groupName = "income">
+                                </autocomplete>
                             </div>
                         </b-field>
                     </div>
@@ -92,9 +95,6 @@
 </template>
 
 <style>
-    /*
-    TODO import css vue2-autocomplete.css
-     */
     .modal-card {
         width: auto;
     }

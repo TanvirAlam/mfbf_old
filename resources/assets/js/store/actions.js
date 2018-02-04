@@ -17,24 +17,19 @@ export default {
       )
   },
 
-  searchCategory: ({ commit }, {query}) => {
+  saveCategory: ({ commit }, {query, groupName}) => {
     console.log(query)
-    axios.post(`/api/income/search`, {
-      query
+    axios.post(`/api/category/store`, {
+      name: query,
+      group_name: groupName
     })
   },
 
-  saveCategory: ({ commit }, {query}) => {
+  deleteCategory: ({ commit }, {query, groupName}) => {
     console.log(query)
-    axios.post(`/api/income/category/save`, {
-      query
-    })
-  },
-
-  deleteCategory: ({ commit }, {query}) => {
-    console.log(query)
-    axios.post(`/api/income/category/delete`, {
-      query
+    axios.post(`/api/category/delete`, {
+      name: query,
+      group_name: groupName
     })
   },
 
