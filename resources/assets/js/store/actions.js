@@ -17,22 +17,6 @@ export default {
       )
   },
 
-  saveCategory: ({ commit }, {query, groupName}) => {
-    console.log(query)
-    axios.post(`/api/category/store`, {
-      name: query,
-      group_name: groupName
-    })
-  },
-
-  deleteCategory: ({ commit }, {query, groupName}) => {
-    console.log(query)
-    axios.post(`/api/category/delete`, {
-      name: query,
-      group_name: groupName
-    })
-  },
-
   fetchUser: ({ commit }) => {
     const user = axios.get('/api/user')
 

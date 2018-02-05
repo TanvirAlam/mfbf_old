@@ -54,14 +54,13 @@
       autoComplete(){
         this.results = [];
         if(this.searchQuery.length > 1){
-          axios.get('/api/category/search', {
-            params: {
-              query: this.searchQuery,
-              group_name: this.groupName
-            }
+          this.$store.dispatch('searchCategory', {
+            query: this.searchQuery,
+            groupName: this.groupName
           }).then(response => {
-            this.results = response.data;
+            this.results = this.$store.state.category.categories
           })
+
         }
       },
       select: function(result){
@@ -72,15 +71,17 @@
         this.$store.dispatch('saveCategory', {
           query: this.searchQuery,
           groupName: this.groupName
+        }).then(response => {
+          this.autoComplete()
         })
-        this.autoComplete()
       },
       deleteCategory(){
         this.$store.dispatch('deleteCategory', {
           query: this.searchQuery,
           groupName: this.groupName
+        }).then(response => {
+          this.autoComplete()
         })
-        this.autoComplete()
       }
     }
   }
