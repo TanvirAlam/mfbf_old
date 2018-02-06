@@ -8,17 +8,17 @@
             <section class="modal-card-body">
                 <div class="columns">
                     <div class="column">
-                        <b-field label="Category">
+                        <b-field label="Income categories">
                             <div class="control">
                                 <autocomplete
-                                placeholder = "Search"
-                                groupName = "income">
+                                    placeholder = "Search for income"
+                                    groupName = "income">
                                 </autocomplete>
                             </div>
                         </b-field>
                     </div>
                     <div class="column">
-                        <b-field label="Collected at">
+                        <b-field label="Income collected month">
                             <div class="control">
                                 Datepicker
                             </div>
@@ -27,14 +27,14 @@
                 </div>
                 <div class="columns">
                     <div class="column">
-                        <b-field label="Description">
+                        <b-field label="Describe your income">
                             <div class="control">
                                 Textarea
                             </div>
                         </b-field>
                     </div>
                     <div class="column">
-                        <b-field label="Upload">
+                        <b-field label="Upload your salary receipt">
                             File Input
                         </b-field>
                         <div class="columns">

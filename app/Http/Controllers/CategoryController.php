@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -59,10 +60,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $group_id = $this->getGroupId($request->get('group_name'));
+
+        $validator = validator($request->all(), [
+            'name' => 'required|unique:categories,name,NULL,id,group_id,'.$group_id,
+        ]);
+
+        if ($validator->fails()) {
+            return;
+        }
+
         $attributes = [
-            'group_id' => $this->getGroupId($request->get('group_name')),
+            'group_id' => $group_id,
             'name' => $request->get('name'),
         ];
+
         $this->category->create($attributes);
     }
 

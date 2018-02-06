@@ -49,6 +49,8 @@ class EloquentCategory implements CategoryRepository
     {
         //TODO: WTF is going on with relations???
         //return $this->model->group->where('name', $group_name)->id;
+        //ucfirst() expects parameter 1 to be string, array given
+        //dd($group_name);
         return Group::where('name', '=', ucfirst($group_name))->value('id');
     }
 

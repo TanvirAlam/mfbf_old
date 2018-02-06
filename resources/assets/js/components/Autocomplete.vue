@@ -25,11 +25,12 @@
             <ul class="list-group">
                 <li class="list-group-item" v-for="result in results" @click="select(result)">
                     {{ result.name }}
-                    <a class="button is-success is-small is-pulled-right" @click="deleteCategory(this.searchQuery)">
+                    <button class="button is-success is-small is-pulled-right" :disabled="result.type" @click.prevent="deleteCategory(result.id, result)">
                         <span class="icon is-small">
                             <icon class="fa fa-trash"></icon>
                         </span>
-                    </a>
+                    </button>
+
                 </li>
             </ul>
         </div>
@@ -39,34 +40,39 @@
   import axios from 'axios'
 
   export default{
+
     data(){
       return {
         searchQuery: '',
         results: []
       }
     },
+
     props: [
       'placeholder',
       'name',
       'groupName'
     ],
+
     methods: {
       autoComplete(){
         this.results = [];
         if(this.searchQuery.length > 1){
-          this.$store.dispatch('searchCategory', {
-            query: this.searchQuery,
-            groupName: this.groupName
+          axios.get('/api/category/search', {
+            params: {
+              query: this.searchQuery,
+              group_name: this.groupName
+            }
           }).then(response => {
-            this.results = this.$store.state.category.categories
-          })
-
+            this.results = response.data
+          });
         }
       },
+
       select: function(result){
         this.searchQuery = result.name
-        this.autoComplete()
       },
+
       saveCategory(){
         this.$store.dispatch('saveCategory', {
           query: this.searchQuery,
@@ -75,13 +81,12 @@
           this.autoComplete()
         })
       },
-      deleteCategory(){
+
+      deleteCategory(categoryId, result){
         this.$store.dispatch('deleteCategory', {
-          query: this.searchQuery,
-          groupName: this.groupName
-        }).then(response => {
-          this.autoComplete()
+          categoryId
         })
+        this.results.splice(result)
       }
     }
   }
@@ -108,17 +113,4 @@
         left: 100px;
         padding: 0px 0px 3px 5px;
     }
-/*
-    .list-group li {
-        position: relative;
-        left: 0;
-        right: 0;
-        margin-top: -15px;
-        list-style: none;
-        transition: all 0.3s ease-out;
-        padding: 20px 0px 0px 0px;
-        font-weight: bold;
-    }
-*/
-
 </style>
