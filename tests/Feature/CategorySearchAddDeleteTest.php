@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
 use Tests\TestCase;
 use Tests\CallsApi;
 
@@ -13,50 +12,34 @@ class CategorySearchAddDeleteTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->authenticate();
+        //$this->authenticate();
     }
 
     /** @test */
-    public function canViewAllCategories()
+    public function canSearchIncomeCategories()
     {
-        /*$xxx = $this->call('GET', 'api/search/category/')->assertSuccessful()
-            ->assertJsonStructure([
-                'email' => 'test'
-            ]);*/
+        /*$searchCategories = [
+            "query" => "Wag",
+            "group_name" => "income"
+        ];
 
-        $response = $this->json('POST', 'api/search/category', ['query' => 'was']);
-
-        dd($response->original);
-
-
-
-        /*    ->assertSuccessful()
-            ->assertJsonStructure([
-            'email' => 'test'
-        ]);*/
+        dd($this->call('GET', 'api/category/search', $searchCategories));*/
     }
 
     /** @test */
-    public function canAddCategory()
-    {
-        /*dd($this->postJson('/api/category/save', [
-            'query' => 'test'
-        ])->original);*/
-
-
-            /*->assertSuccessful()->assertJsonStructure([
-            'email' => 'test'
-        ]);*/
-    }
-
-    /** @test */
-    /*public function canDeleteCategory()
+    /*public function canAddIncomeCategories()
     {
 
     }*/
 
     /** @test */
-    /*public function canEditCategory()
+    /*public function canDeleteIncomeCategories()
+    {
+
+    }*/
+
+    /** @test */
+    /*public function canNotDeleteSystemIncomeCategories()
     {
 
     }*/
