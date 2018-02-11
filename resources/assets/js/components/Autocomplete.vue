@@ -6,7 +6,7 @@
                    v-bind:groupName="groupName"
                    v-model="searchQuery"
                    v-on:keyup="autoComplete()"
-                   class="form-control">
+                   class="input">
                 <span class="is-pulled-right newCategorySave" v-if="results.length == 0 && this.searchQuery">
                     <a class="button is-success is-small" @click="saveCategory(this.searchQuery)">
                         <span class="icon is-small">
