@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\CategoryRepository;
+use App\Repositories\Contracts\CategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
     /**
-     * @var $task
+     * @var CategoryRepository
      */
     private $category;
 
     /**
-     * TaskController constructor.
+     * CategoryController constructor.
      *
      * @param CategoryRepository $category
      */

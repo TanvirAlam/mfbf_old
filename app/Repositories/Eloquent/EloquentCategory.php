@@ -1,9 +1,10 @@
 <?php
 
-namespace app\Repositories;
+namespace app\Repositories\Eloquent;
 
 use App\Models\Category;
 use App\Models\Group;
+use App\Repositories\Contracts\CategoryRepository;
 
 class EloquentCategory implements CategoryRepository
 {
@@ -15,7 +16,7 @@ class EloquentCategory implements CategoryRepository
     /**
      * EloquentCategory constructor.
      *
-     * @param App\Category $model
+     * @param \App\Category $model
      */
     public function __construct(Category $model)
     {
@@ -76,5 +77,20 @@ class EloquentCategory implements CategoryRepository
     public function delete($id)
     {
         return $this->model->find($id)->delete();
+    }
+
+    public function all($columns = array('*'))
+    {
+        return $this->model->get($columns);
+    }
+
+    public function find($id, $columns = array('*'))
+    {
+        return $this->model->find($id, $columns);
+    }
+
+    public function findBy($attribute, $value, $columns = array('*'))
+    {
+        return $this->model->where($attribute, '=', $value)->first($columns);
     }
 }

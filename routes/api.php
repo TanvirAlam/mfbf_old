@@ -27,4 +27,17 @@
             ]);
         });
 
+        // Income Routes
+        Route::group(['prefix' => 'income'], function () {
+            Route::post('store', [
+                'uses' => 'IncomeController@store',
+                'as' => 'income.store'
+            ]);
+
+            Route::get('{id}/view', [
+                'uses' => 'IncomeController@view',
+                'as' => 'income.show'
+            ]);
+        });
+
     });

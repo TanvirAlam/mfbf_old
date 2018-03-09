@@ -2,13 +2,15 @@ import axios from 'axios'
 
 export default {
   state: {
-
+    selectedCategoryInfo: {},
   },
   getters: {
 
   },
   mutations: {
-
+    SELECTED_CATEGORY_INFO: (state, payload) => {
+      state.selectedCategoryInfo = payload
+    },
   },
   actions: {
     saveCategory(context, data) {
@@ -27,5 +29,9 @@ export default {
     deleteCategory: ({}, {categoryId}) => {
       axios.delete(`/api/category/${categoryId}/delete`)
     },
+
+    selectedCategories({commit}, {groupId, categoryId}){
+      commit('SELECTED_CATEGORY_INFO', { groupId, categoryId })
+    }
   }
 }

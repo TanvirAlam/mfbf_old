@@ -1,5 +1,5 @@
 <template>
-    <form action="">
+    <form @submit.prevent="validateIncome">
         <div class="modal-card">
             <header class="modal-card-head is-small">
                 <img src="/img/income_new.png" alt="User Image">
@@ -10,22 +10,25 @@
                     <div class="column">
                         <b-field label="Income categories">
                             <div class="control">
-                                <autocomplete
+                                <autocomplete name = "category"
                                     placeholder = "Search for income"
-                                    groupName = "income">
+                                    groupName = "income"
+                                    v-validate="'required'">
                                 </autocomplete>
                             </div>
                         </b-field>
+                        <span v-show="errors.has('category')" class="help is-danger">{{ errors.first('category') }}</span>
                     </div>
                     <div class="column">
                         <b-field label="Income collected month">
                             <div class="control">
                                 <datepicker
+                                        name="incomeDate"
                                         input-class="input"
                                         :minimumView="'month'"
-                                        :maximumView="'year'"
-                                        :initialView="'year'"
-                                        :placeholder="'Select 1st of the month'">
+                                        :placeholder="'Select 1st of the month'"
+                                        :value="getDate"
+                                        v-model="incomeDate">
                                 </datepicker>
                             </div>
                         </b-field>
@@ -36,7 +39,7 @@
                         <b-field label="Describe your income">
                             <div class="control">
                                 <div class="control">
-                                    <textarea class="textarea" placeholder="Description about your income"></textarea>
+                                    <textarea class="textarea" placeholder="Description about your income" v-model="incomeDescription"></textarea>
                                 </div>
                             </div>
                         </b-field>
@@ -78,12 +81,13 @@
                                             <div class="field">
                                                 <div class="control">
                                                     <div class="select is-primary">
-                                                        <select>
-                                                            <option>Yearly</option>
-                                                            <option>Monthly</option>
-                                                            <option>Weekly</option>
-                                                            <option>Daily</option>
-                                                            <option>Hourly</option>
+                                                        <select class="form-control c-select" v-model="incomeIntervel" name="incomeIntervel">
+                                                            <option disabled value="">Please select one</option>
+                                                            <option value="Y">Yearly</option>
+                                                            <option value="M" selected="selected">Monthly</option>
+                                                            <option value="W">Weekly</option>
+                                                            <option value="D">Daily</option>
+                                                            <option value="H">Hourly</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -99,14 +103,38 @@
                     <div class="column">
                         <b-field label="Amount before SKAT">
                             <div class="control has-icons-left">
-                                <auto-amount></auto-amount>
+                                <vue-autonumeric
+                                    v-model="incomeBeforeSkat"
+                                    :options="{
+                                        digitGroupSeparator: '.',
+                                        decimalCharacter: ',',
+                                        decimalCharacterAlternative: '.',
+                                        currencySymbol: '\u00a0DKK',
+                                        currencySymbolPlacement: 's',
+                                        roundingMethod: 'U',
+                                        minimumValue: '0'
+                                    }"
+                                    class="incomeAmount">
+                                </vue-autonumeric>
                             </div>
                         </b-field>
                     </div>
                     <div class="column">
                         <b-field label="Amount after SKAT">
                             <div class="control has-icons-left">
-                                <auto-amount></auto-amount>
+                                <vue-autonumeric
+                                        v-model="incomeAfterSkat"
+                                        :options="{
+                                        digitGroupSeparator: '.',
+                                        decimalCharacter: ',',
+                                        decimalCharacterAlternative: '.',
+                                        currencySymbol: '\u00a0DKK',
+                                        currencySymbolPlacement: 's',
+                                        roundingMethod: 'U',
+                                        minimumValue: '0'
+                                    }"
+                                        class="incomeAmount">
+                                </vue-autonumeric>
                             </div>
                         </b-field>
                     </div>
@@ -120,28 +148,88 @@
                         </span>
                         <span>Close</span>
                     </a>
-                    <a class="button is-success is-small">
+                    <button type="submit" class="button is-success is-small">
                         <span class="icon is-small">
                           <icon class="fa fa-save"></icon>
                         </span>
                         <span>Save</span>
-                    </a>
+                    </button>
                 </div>
             </footer>
         </div>
     </form>
 </template>
 <script>
+  import { Validator } from 'vee-validate';
   import Datepicker from 'vuejs-datepicker'
+  import VueAutonumeric from 'vue-autonumeric/src/components/VueAutonumeric'
 
   export default {
+    props: [
+      'groupId',
+      'categoryId'
+    ],
     data() {
       return {
-        isSwitchedCustom: 'Yes'
+        isSwitchedCustom: 'Yes',
+        category: '',
+        getDate: new Date(),
+        incomeDate: '',
+        incomeDescription: '',
+        incomeIntervel: '',
+        incomeBeforeSkat: 0.00,
+        incomeAfterSkat: 0.00,
       }
     },
+    created() {
+
+    },
     components: {
-      Datepicker
+      Datepicker,
+      VueAutonumeric
+    },
+    methods: {
+      saveIncome () {
+        this.$store.dispatch('saveIncome', {
+          categoryId: this.$store.state.category.selectedCategoryInfo.categoryId,
+          groupId: this.$store.state.category.selectedCategoryInfo.groupId,
+          incomeDate: this.incomeDate,
+          desc: this.incomeDescription,
+          occurance: this.isSwitchedCustom,
+          interval: this.incomeIntervel,
+          amountBeforeSkat: this.incomeBeforeSkat,
+          amountAfterSkat: this.incomeAfterSkat,
+        })
+      },
+      validateIncome() {
+        /*console.log(
+          this.$store.state.category.selectedCategoryInfo.categoryId,
+          this.$store.state.category.selectedCategoryInfo.groupId,
+          this.incomeDate,
+          this.incomeDescription,
+          this.isSwitchedCustom,
+          this.incomeIntervel,
+          this.incomeBeforeSkat,
+          this.incomeAfterSkat,
+        )*/
+
+        //this.saveIncome()
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            console.log(result)
+            return
+          }
+          console.log(result)
+        })
+      }
+    },
+    computed: {
+      getCategoryId () {
+        return this.$store.state.category.selectedCategoryInfo.categoryId
+      },
+      getGroupId () {
+        return this.$store.state.category.selectedCategoryInfo.groupId
+      }
     }
   }
 </script>
@@ -160,5 +248,13 @@
     }
     .tag {
         cursor: pointer;
+    }
+
+    .incomeAmount {
+        padding: .50em .5em;
+        font-size: 100%;
+        border: 1px solid #ccc;
+        width: 100%;
+        text-align: right;
     }
 </style>

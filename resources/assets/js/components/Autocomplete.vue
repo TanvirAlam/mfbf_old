@@ -2,6 +2,7 @@
     <div>
         <div class="field">
             <input type="text"
+                   v-bind:name="name"
                    v-bind:placeholder="placeholder"
                    v-bind:groupName="groupName"
                    v-model="searchQuery"
@@ -44,7 +45,9 @@
     data(){
       return {
         searchQuery: '',
-        results: []
+        results: [],
+        groupId: '',
+        categoryId: ''
       }
     },
 
@@ -71,6 +74,12 @@
 
       select: function(result){
         this.searchQuery = result.name
+        this.groupId = result.group_id
+        this.categoryId = result.id
+        this.$store.dispatch('selectedCategories', {
+          groupId: result.group_id,
+          categoryId: result.id
+        })
       },
 
       saveCategory(){
