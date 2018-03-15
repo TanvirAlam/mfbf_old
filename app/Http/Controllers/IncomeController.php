@@ -34,7 +34,7 @@ class IncomeController extends Controller
         dd($request->get('category_id'));
         $validator = validator($request->all(), [
             'category_id' => 'required',
-            'amount_b_skat' => 'integer|null',
+            'amount_b_skat' => 'integer|nullable',
             'amount_a_skat' => 'required|integer',
             'income_date' => 'required|date'
         ]);

@@ -9,12 +9,13 @@
                 <div class="columns">
                     <div class="column">
                         <b-field label="Income categories">
-                            <div class="control">
-                                <autocomplete name = "category"
-                                    placeholder = "Search for income"
-                                    groupName = "income"
-                                    v-validate="'required'">
-                                </autocomplete>
+                            <div :class="{ 'control': true }">
+                                <div class="control">
+                                    <div class="is-primary">
+
+                                        <v-select v-model="selected" :options="['foo','bar']"></v-select>
+                                    </div>
+                                </div>
                             </div>
                         </b-field>
                         <span v-show="errors.has('category')" class="help is-danger">{{ errors.first('category') }}</span>
@@ -179,10 +180,8 @@
         incomeIntervel: '',
         incomeBeforeSkat: 0.00,
         incomeAfterSkat: 0.00,
+        selected: 'foo'
       }
-    },
-    created() {
-
     },
     components: {
       Datepicker,
@@ -191,7 +190,7 @@
     methods: {
       saveIncome () {
         this.$store.dispatch('saveIncome', {
-          categoryId: this.$store.state.category.selectedCategoryInfo.categoryId,
+          categoryId: this.category,
           groupId: this.$store.state.category.selectedCategoryInfo.groupId,
           incomeDate: this.incomeDate,
           desc: this.incomeDescription,
@@ -217,9 +216,11 @@
         this.$validator.validateAll().then((result) => {
           if (result) {
             console.log(result)
+            console.log(this.category)
             return
           }
           console.log(result)
+          console.log(this.category)
         })
       }
     },
